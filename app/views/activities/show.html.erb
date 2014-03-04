@@ -1,0 +1,70 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Detail</title>
+</head>
+<body>
+
+    <div class="page-header">
+        <h3>Activity Detail:</h3>
+    </div>
+        <div class="row">
+            <div class="col-md-2">Date:</div>
+            <div class="col-md-10"> <%= @activity.date %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Athlete:</div>
+            <div class="col-md-10"> <%= @user_list.find_by(id: @activity.user_id).name %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Activity:</div>
+            <div class="col-md-10"> <%= @activity.variety %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Distance:</div>
+            <div class="col-md-10"> <%= @activity.distance %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Time:</div>
+            <div class="col-md-10"> <%= @activity.time %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Description:</div>
+            <div class="col-md-10"> <%= @activity.description %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Image:</div>
+            <div class="col-md-10"> <img src=<%= @activity.photo_url %> width="250"></div>
+        </div>
+
+    <div class="page-header">
+        <h3>Comments:</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><u>Date</u></div>
+        <div class="col-md-2"><u>Athlete</u> </div>
+        <div class="col-md-8"><u>Comment</u></div>
+    </div>
+
+<!-- Data -->
+    <% @comment_list.each do |comment| %>
+        <% if comment.activity_id == @activity.id %>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <%= comment.date %>
+                </div>
+                <div class="col-md-2">
+                    <%= @user_list.find_by(id: comment.user_id).name %>
+                </div>
+                <div class="col-md-8">
+                    <%= comment.comment %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+
+<!-- End Data -->
+</body>
+</html>

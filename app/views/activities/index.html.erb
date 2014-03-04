@@ -1,0 +1,53 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Index</title>
+</head>
+<body>
+
+    <div class="page-header">
+        <h3>All Activities</h3>
+        <div class="btn-group">
+            <button type="button" class="btn btn-success"><a href="/activities/new" style="color: white">New Activity </a></button>
+        </div>
+    </div>
+
+
+<!-- Header Row -->
+    <div class="row" style="border-left:5px solid white; padding-left:5px; border-right:5px solid white; padding-right:5px">
+        <div class="col-md-2"><u>Date</u></div>
+        <div class="col-md-2"><u>Athlete</u> </div>
+        <div class="col-md-1"><u>Activity</u></div>
+        <div class="col-md-1"><u>Distance</u></div>
+        <div class="col-md-1"><u>Time</u></div>
+        <div class="col-md-5"><u>Description</u></div>
+    </div>
+<!-- Data -->
+    <% @activity_list.each do |activity| %>
+        <a href="/activities/show?activity_id=<%=activity.id%>">
+            <div class="row" style="border:5px solid white; background-color: #D0FFFF; padding:5px">
+                <div class="col-md-2">
+                    <%= activity.date %>
+                </div>
+                <div class="col-md-2">
+                    <%= @user_list.find_by(id: activity.user_id).name %>
+                </div>
+                <div class="col-md-1">
+                    <%= activity.variety %>
+                </div>
+                <div class="col-md-1">
+                    <%= activity.distance %>
+                </div>
+                <div class="col-md-1">
+                    <%= activity.time %>
+                </div>
+                <div class="col-md-5">
+                    <%= activity.description %>
+                </div>
+            </div>
+        </a>
+    <% end %>
+
+<!-- End Data -->
+</body>
+</html>

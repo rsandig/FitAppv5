@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Community Detail</title>
+</head>
+<body>
+
+    <div class="page-header">
+        <h3>Community Detail:</h3>
+    </div>
+        <div class="row">
+            <div class="col-md-2">Name:</div>
+            <div class="col-md-10"> <%= @community.name %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Community Type:</div>
+            <div class="col-md-10"> <%= @community.variety %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"># Members:</div>
+            <div class="col-md-10"> <%= @membership_list_abrv.where(community_id: @community.id).count %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Description:</div>
+            <div class="col-md-10"> NEED TO ADD COMMUNITY DESCRIPTIONS </div>
+        </div>
+
+
+    <div class="page-header">
+        <h3>Athletes:</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><u>Name</u></div>
+        <div class="col-md-1"><u>Age</u> </div>
+        <div class="col-md-1"><u>Gender</u></div>
+        <div class="col-md-2"><u># Activities</u></div>
+        <div class="col-md-2"><u># Comments</u></div>
+    </div>
+
+<!-- Data -->
+    <% @membership_list_abrv.each do |membership| %>
+
+            <div class="row">
+                    <div class="col-md-2"><%= @user_list.find_by(id: membership.user_id).name %></div>
+                    <div class="col-md-1"><%= @user_list.find_by(id: membership.user_id).age %> </div>
+                    <div class="col-md-1">
+                            <%if @user_list.find_by(id: membership.user_id).male %>
+                                Male
+                            <% else %>
+                                Female
+                            <% end %>
+                    </div>
+                    <div class="col-md-2"><%= @activity_list.where(user_id: membership.user_id).count %></div>
+                    <div class="col-md-2"><%= @comment_list.where(user_id: membership.user_id).count %></div>
+            </div>
+    <% end %>
+
+<!-- End Data -->
+</body>
+</html>

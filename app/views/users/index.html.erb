@@ -1,0 +1,57 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Athlete Index</title>
+</head>
+<body>
+    <div class="page-header">
+        <h3>All Athletes</h3>
+    </div>
+
+<!-- Header Row -->
+    <div class="row"  style="border-left:5px solid white; padding-left:5px; border-right:5px solid white; padding-right:5px">
+        <div class="col-md-2"><u>Name</u></div>
+        <div class="col-md-2"><u>Community(s)</u></div>
+        <div class="col-md-1"><u>Age</u></div>
+        <div class="col-md-1"><u>Gender</u></div>
+        <div class="col-md-2"><u># Activities</u></div>
+        <div class="col-md-2"><u># Comments</u></div>
+    </div>
+<!-- Data -->
+    <% @user_list.each do |user| %>
+        <div class="row" style="border:5px solid white; background-color: #D0FFFF; padding:5px">
+            <div class="col-md-2">
+                <%= user.name %>
+            </div>
+
+            <div class="col-md-2">
+                <% @membership_list.each do |membership| %>
+                    <%if membership.user_id == user.id%>
+                        <%= @community_list.find_by(id: membership.community_id).name %></br>
+                    <% end %>
+                <% end %>
+            </div>
+
+            <div class="col-md-1">
+                <%= user.age %>
+            </div>
+            <div class="col-md-1">
+                <% if user.male %>
+                    Male
+                <% end %>
+                <% if user.male==false %>
+                    Female
+                <% end %>
+            </div>
+            <div class="col-md-2">
+                <%= @activity_list.where(user_id: user.id).count %>
+            </div>
+            <div class="col-md-2">
+                <%= @comment_list.where(user_id: user.id).count %>
+            </div>
+        </div>
+    <% end %>
+
+<!-- End Data -->
+</body>
+</html>

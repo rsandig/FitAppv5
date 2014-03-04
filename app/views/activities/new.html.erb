@@ -1,0 +1,56 @@
+<DOCTYPE!=  <!DOCTYPE html>
+<html>
+<head>
+    <title>New Activity</title>
+</head>
+<body>
+    <div class="page-header">
+        <h3>New Activity</h3>
+    </div>
+
+<% u = User.find_by(:id => session[:user_id]) %>
+
+        <% if u.present? %>
+
+                <form action="/activities/create" class="col-md-4">
+
+                  <div class="form-group">
+                    <label class="control-label">Activity type:</label>
+                    <input name="variety" type="text" class="form-control input-md" placeholder="E.g. running, swimming etc...">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Date:</label>
+                    <input name="date" type="date" class="form-control input-md">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Distance:</label>
+                    <input name="distance" type="float" class="form-control input-md" placeholder="How far did you go???">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Time:</label>
+                    <input name="time" type="float" class="form-control input-md" placeholder="How long did you workout for???">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Description:</label>
+                    <input name="description" type="text" class="form-control input-md" placeholder="Details, notes, etc...">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Link to photo:</label>
+                    <input name="photo_url" type="string" class="form-control input-md" placeholder="http://...">
+                  </div>
+
+                  <button type="submit" class="btn btn-success btn-md">Enter Activity!</button>
+                  or
+                  <%= link_to "Go Back", "/" %>
+                </form>
+        <% else %>
+                You can only enter a new activity if you sign in!
+                <!-- MAKE THIS AUTO REDIRECT TO SIGN IN ???  -->
+        <% end %>
+</body>
+</html>
