@@ -1,9 +1,22 @@
 class CommunitiesController < ApplicationController
 
     def new
+
     end
 
     def create
+        c = Community.new
+        c.name = params["name"]
+        c.variety = params["variety"]
+        c.save
+
+        m = Membership.new
+        m.user_id = session[:user_id]
+        m.community_id = Community.last.id
+        m.save
+
+        redirect_to "/communities/index"
+
     end
 
     def index

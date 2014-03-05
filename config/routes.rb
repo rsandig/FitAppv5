@@ -1,15 +1,8 @@
 FitApp::Application.routes.draw do
 
-#############################################
-#Think about                                                                           #
-# => Sorting                                                                            #
-# => Upcoming workouts                                                       #
-# => Emails                                                                             #
-#                                                                                               #
-#############################################
-
-get "/" => "activities#index"
-root "activities#index"
+#home page
+get "/" => "home#home"
+root "home#home"
 
 #users read
 get "/users" => "users#index"

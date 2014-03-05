@@ -18,7 +18,9 @@ class UsersController < ApplicationController
         u.age = params["age"]
         u.male = params["gender"]
         u.save
-        redirect_to "/users/index"
+
+        session[:user_id] = User.last.id
+        redirect_to "/users/index", notice: "Welcome!"
     end
 
     def show

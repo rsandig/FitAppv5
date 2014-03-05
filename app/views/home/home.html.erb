@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to FitApp!</title>
+</head>
+<body>
+    <div class="page-header">
+        <h3>Welcome to FitApp!</h3>
+        The best way to keep track of your workouts, and your friends' !!!
+    </div>
+
+    <div class="row">
+        <!-- STATS QUADRANT -->
+        <div class="col-md-4">
+            <h3>FitApp Stats:</h3>
+            <p>Number of athletes signed up: <%= @user_list.count%>
+            <p>Number of workouts logged: <%= @activity_list.count%>
+            <p>Number of communities formed: <%= @community_list.count%>
+        </div>
+
+        <!-- BUTTONS QUADRANT -->
+        <% u = User.find_by(:id => session[:user_id]) %>
+
+        <% if u.present? %>
+                <div class="col-md-4">
+                    <h3><%= u.name %>'s Stats:</h3>
+                    <p>Number of workouts logged: <%= @activity_list.where(:user_id => u.id).count%>
+                    <p>Number of communities joined: <%= @membership_list.where(:user_id => u.id).count%>
+                    <p>Number of comments made: <%= @comment_list.where(:user_id => u.id).count%>
+                </div>
+        <% else %>
+                <div class="col-md-4">
+                <h3>Get Started!</h3>
+                    <!-- NEED TO UPDATE WHAT SHOWS IF YOU ARE ALREADY LOGGED IN -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success"><a href="/login" style="color: white">Log In!</a></button>
+                    </div>
+                    <p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success"><a href="/users/new" style="color: white">Sign Up!</a></button>
+                    </div>
+                </div>
+        <% end %>
+        <!-- / END BUTTONS QUADRANT -->
+    </div>
+
+    <div class="row">
+        <!-- IMAGE QUADRANT -->
+        <div class="col-md-4">
+            <img width = "300" style="border-top:25px solid white" src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-ash3/t1/1011795_10202150031090706_380290860_n.jpg" alt="Running down to Chicago for brunch!!">
+        </div>
+
+    <!-- WEATHER QUADRANT -->
+        <div class="col-md-4">
+                <h3>Today's weather for <%= @city2 %>:</h3>
+                <h3>
+                    <span class="label label-success">It is currently: <%= @data2["main"]["temp"] %>&deg;F &amp; <%= @data2["weather"].at(0)["description"] %>.
+                    </span>
+                </h3>
+                <p>
+                    <span class="label label-primary">Low:</span>
+                    <%= @data2["main"]["temp_min"] %>&deg;F
+                </p>
+                <p>
+                    <span class="label label-primary">High:</span>
+                    <%= @data2["main"]["temp_max"] %>&deg;F
+                </p>
+                <p>
+                    <span class="label label-primary">Cloud cover:</span>
+                    <%= @data2["clouds"]["all"] %>%
+                </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
