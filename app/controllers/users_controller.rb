@@ -10,6 +10,14 @@ class UsersController < ApplicationController
     def new
     end
 
+    def edit
+        @user = User.find_by(:id => session[:user_id])
+        @activity_list = Activity.all
+        @comment_list = Comment.all
+        @membership_list = Membership.all
+        @community_list = Community.all
+    end
+
     def create
         u = User.new
         u.name = params["name"]
@@ -24,5 +32,10 @@ class UsersController < ApplicationController
     end
 
     def show
+        @user = User.find_by(id: params["user_id"])
+        @activity_list = Activity.all
+        @comment_list = Comment.all
+        @membership_list = Membership.all
+        @community_list = Community.all
     end
 end

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+</head>
+<body>
+    <div class="page-header">
+        <h3>Edit Profile</h3>
+    </div>
+        <form action="/users/edit" class="col-md-4">
+          <div class="form-group">
+            <label class="control-label">First Name:</label>
+            <input name="name" type="text" class="form-control input-md" value=<%= @user.name %>>
+          </div>
+
+          <div class="form-group">
+            <label>Username:</label>
+            <input name="username" type="text" class="form-control input-md" value=<%= @user.username %>>
+          </div>
+
+          <div class="form-group">
+            <label>Password:</label>
+            <input name="password" type="text" class="form-control input-md" value=<%= @user.password %>>
+          </div>
+
+          <div class="form-group">
+            <label>Age:</label>
+            <input name="age" type="integer" class="form-control input-md" value=<%= @user.age %>>
+          </div>
+
+          <div class="form-group">
+            <label>Gender:</label><br>
+            <%if @user.male %>
+                <input name="gender" type="radio" value=true checked>Male<br>
+                <input name="gender" type="radio" value=false>Female
+            <% else %>
+                <input name="gender" type="radio" value=true>Male<br>
+                <input name="gender" type="radio" value=false checked>Female
+            <% end %>
+          </div>
+
+          <button type="submit" class="btn btn-success btn-md">Save Changes</button>
+          or
+          <%= link_to "Go Back", "/" %>
+        </form>
+</body>
+</html>

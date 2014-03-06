@@ -5,5 +5,62 @@
 </head>
 <body>
 
+    <div class="page-header">
+        <h3>Athlete Profile:</h3>
+        <!-- HIDE EDIT OPTION IF NOT SELF -->
+        <div>
+                <% u = User.find_by(:id => session[:user_id]) %>
+                <% if u.id==@user.id %>
+                    <button type="button" class="btn btn-md btn-success"><a href="/users/edit" style="color: white">Edit Profile</a></button>
+                <% else %>
+                <% end %>
+        </div>
+        <!-- END HIDE -->
+    </div>
+        <div class="row">
+            <div class="col-md-2">Name:</div>
+            <div class="col-md-10"> <%= @user.name %> </div>
+        </div>
+        <!-- HIDE PASSWORD AND USERNAME IF NOT SELF -->
+        <% u = User.find_by(:id => session[:user_id]) %>
+        <% if u.id==@user.id %>
+                <div class="row">
+                    <div class="col-md-2">Username:</div>
+                    <div class="col-md-10"><%= @user.username %> </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">Password:</div>
+                    <div class="col-md-10"><%= @user.password %></div>
+                </div>
+        <% else %>
+        <% end %>
+        <!-- END HIDE -->
+
+        <div class="row">
+            <div class="col-md-2">Age:</div>
+            <div class="col-md-10"> <%= @user.age %> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Gender:</div>
+            <div class="col-md-10"> <%if @user.male %>Male<% else %>Female<%end%></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Communities:</div>
+            <div class="col-md-10">
+                <% @membership_list.each do |membership| %>
+                    <%if membership.user_id == @user.id%>
+                        <%= @community_list.find_by(id: membership.community_id).name %></br>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"># Workouts:</div>
+            <div class="col-md-10"> <%= @activity_list.where(user_id: @user.id).count %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"># Comments:</div>
+            <div class="col-md-10"> <%= @comment_list.where(user_id: @user.id).count %></div>
+        </div>
 </body>
 </html>

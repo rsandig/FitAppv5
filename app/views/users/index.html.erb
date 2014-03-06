@@ -19,37 +19,39 @@
     </div>
 <!-- Data -->
     <% @user_list.each do |user| %>
-        <div class="row" style="border:5px solid white; background-color: #D0FFFF; padding:5px">
-            <div class="col-md-2">
-                <%= user.name %>
-            </div>
+        <a href="/users/<%= user.id %>/show">
+            <div class="row" style="border:5px solid white; background-color: #D0FFFF; padding:5px">
+                <div class="col-md-2">
+                    <%= user.name %>
+                </div>
 
-            <div class="col-md-2">
-                <% @membership_list.each do |membership| %>
-                    <%if membership.user_id == user.id%>
-                        <%= @community_list.find_by(id: membership.community_id).name %></br>
+                <div class="col-md-2">
+                    <% @membership_list.each do |membership| %>
+                        <%if membership.user_id == user.id%>
+                            <%= @community_list.find_by(id: membership.community_id).name %></br>
+                        <% end %>
                     <% end %>
-                <% end %>
-            </div>
+                </div>
 
-            <div class="col-md-1">
-                <%= user.age %>
+                <div class="col-md-1">
+                    <%= user.age %>
+                </div>
+                <div class="col-md-1">
+                    <% if user.male %>
+                        Male
+                    <% end %>
+                    <% if user.male==false %>
+                        Female
+                    <% end %>
+                </div>
+                <div class="col-md-2">
+                    <%= @activity_list.where(user_id: user.id).count %>
+                </div>
+                <div class="col-md-2">
+                    <%= @comment_list.where(user_id: user.id).count %>
+                </div>
             </div>
-            <div class="col-md-1">
-                <% if user.male %>
-                    Male
-                <% end %>
-                <% if user.male==false %>
-                    Female
-                <% end %>
-            </div>
-            <div class="col-md-2">
-                <%= @activity_list.where(user_id: user.id).count %>
-            </div>
-            <div class="col-md-2">
-                <%= @comment_list.where(user_id: user.id).count %>
-            </div>
-        </div>
+        </a>
     <% end %>
 
 <!-- End Data -->

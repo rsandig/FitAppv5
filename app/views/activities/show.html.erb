@@ -34,36 +34,60 @@
         </div>
         <div class="row">
             <div class="col-md-2">Image:</div>
-            <div class="col-md-10"> <img src=<%= @activity.photo_url %> width="250"></div>
+            <div class="col-md-10">
+                <% if @activity.photo_url =="" %>
+                    (No image uploaded)
+                <% else %>
+                    <img src=<%= @activity.photo_url %> width="250">
+                <% end %>
+            </div>
         </div>
 
     <div class="page-header">
         <h3>Comments:</h3>
     </div>
 
-    <div class="row">
-        <div class="col-md-2"><u>Date</u></div>
-        <div class="col-md-2"><u>Athlete</u> </div>
-        <div class="col-md-8"><u>Comment</u></div>
-    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3"><u>Date</u></div>
+            <div class="col-md-3"><u>Athlete</u> </div>
+            <div class="col-md-6"><u>Comment</u></div>
+        </div>
 
-<!-- Data -->
-    <% @comment_list.each do |comment| %>
-        <% if comment.activity_id == @activity.id %>
+    <!-- Data -->
+        <% @comment_list.each do |comment| %>
+            <% if comment.activity_id == @activity.id %>
 
-            <div class="row">
-                <div class="col-md-2">
-                    <%= comment.date %>
+                <div class="row">
+                    <div class="col-md-3">
+                        <%= comment.date %>
+                    </div>
+                    <div class="col-md-3">
+                        <%= @user_list.find_by(id: comment.user_id).name %>
+                    </div>
+                    <div class="col-md-6">
+                        <%= comment.comment %>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <%= @user_list.find_by(id: comment.user_id).name %>
-                </div>
-                <div class="col-md-8">
-                    <%= comment.comment %>
-                </div>
-            </div>
+            <% end %>
         <% end %>
-    <% end %>
+    </div>
+    <div class="col-md-6">
+          <% if session[:user_id].present? %>
+              <p class="lead"><strong>Write a comment <%= @user_list.find_by(:id => session[:user_id]).name %></strong></p>
+
+              <form action="/activities/comment" class="well">
+                <input name="activity_id" value=<%= @activity.id %> type="hidden">
+
+                <div class="form-group">
+                  <textarea name="comment" class="form-control input-md" rows="5" placeholder="Your comment goes here..." ></textarea>
+                </div>
+                <input type="submit" class="btn btn-md btn-success" value="Submit my Comment">
+              </form>
+          <% else %>
+              <a href="/login" class="btn btn-primary btn-lg pull-right">Sign In To Comment on this Activity!</a>
+          <% end %>
+    </div>
 
 <!-- End Data -->
 </body>

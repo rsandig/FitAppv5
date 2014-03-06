@@ -31,6 +31,17 @@ class ActivitiesController < ApplicationController
         redirect_to "/activities/index"
     end
 
+    def comment
+        c = Comment.new
+        c.user_id = session[:user_id]
+        c.comment = params[:comment]
+        c.date = Time.new
+        c.activity_id = params[:activity_id]
+        c.save
+        @redirect_url = "/activities/show?activity_id="+params[:activity_id]
+        redirect_to @redirect_url
+    end
+
     def edit
     end
 

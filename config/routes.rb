@@ -10,6 +10,7 @@ get "/users/index" => "users#index"
 get "/users/new" => "users#new"
 get "/users/create" => "users#create"
 get "/users/:user_id/show" => "users#show"
+get "/users/edit" => "users#edit"
 
 #activities read
 get "/activities" => "activities#index"
@@ -17,6 +18,7 @@ get "/activities/index" => "activities#index"
 get "/activities/show" => "activities#show"
 get "/activities/new" => "activities#new"
 get "/activities/create" => "activities#create"
+get "/activities/comment" => "activities#comment"
 
 #sessions
   get "/login" => "sessions#login"
