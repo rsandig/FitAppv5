@@ -10,9 +10,11 @@
         <!-- HIDE EDIT OPTION IF NOT SELF -->
         <div>
                 <% u = User.find_by(:id => session[:user_id]) %>
-                <% if u.id==@user.id %>
-                    <button type="button" class="btn btn-md btn-success"><a href="/users/edit" style="color: white">Edit Profile</a></button>
-                <% else %>
+                <% if u.present? %>
+                    <% if u.id==@user.id %>
+                        <button type="button" class="btn btn-md btn-success"><a href="/users/edit" style="color: white">Edit Profile</a></button>
+                    <% else %>
+                    <% end %>
                 <% end %>
         </div>
         <!-- END HIDE -->
@@ -23,16 +25,18 @@
         </div>
         <!-- HIDE PASSWORD AND USERNAME IF NOT SELF -->
         <% u = User.find_by(:id => session[:user_id]) %>
-        <% if u.id==@user.id %>
-                <div class="row">
-                    <div class="col-md-2">Username:</div>
-                    <div class="col-md-10"><%= @user.username %> </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">Password:</div>
-                    <div class="col-md-10"><%= @user.password %></div>
-                </div>
-        <% else %>
+        <% if u.present? %>
+            <% if u.id==@user.id %>
+                    <div class="row">
+                        <div class="col-md-2">Username:</div>
+                        <div class="col-md-10"><%= @user.username %> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Password:</div>
+                        <div class="col-md-10"><%= @user.password %></div>
+                    </div>
+            <% else %>
+            <% end %>
         <% end %>
         <!-- END HIDE -->
 
